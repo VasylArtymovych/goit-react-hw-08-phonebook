@@ -7,7 +7,7 @@ import Filter from 'components/Filter';
 import { Box } from 'components/Box/Box';
 import Spinner from 'components/Spinner/Spinner';
 import { useContacts } from 'hooks';
-import { Operations } from '../../redux';
+import { Operations } from 'redux/contacts';
 
 const PhoneBook = () => {
   const { contacts, filter, setFilter } = useContacts();

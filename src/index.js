@@ -2,25 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
+import { Theme, GlobalStyles } from 'styles';
 import App from 'components/App';
-import './index.css';
-import { Theme } from './components/Theme';
-import { Store } from './redux';
-
-const Global = createGlobalStyle`
-  * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-  }
-`;
+import { store } from './redux/store';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Global />
+    <GlobalStyles />
     <ThemeProvider theme={Theme}>
-      <Provider store={Store.store}>
+      <Provider store={store}>
         <BrowserRouter basename="/goit-react-hw-08-phonebook/">
           <App />
         </BrowserRouter>

@@ -5,12 +5,11 @@ export const Form = styled.form`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
   padding: ${p => p.theme.space[4]}px;
   margin-bottom: ${p => p.theme.space[4]}px;
   background: ${p => p.theme.colors.darkGreen};
   color: ${p => p.theme.colors.white};
-  border-radius: 10px;
+  border-radius: ${p => p.theme.radii.medium};
 `;
 
 export const Label = styled.label`
