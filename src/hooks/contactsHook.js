@@ -1,6 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { Operations } from 'redux/contacts';
-import { changeFilter } from 'redux/contacts';
+import { contactsOperations, changeFilter } from 'redux/contacts';
 
 // contactsHook
 export const useContacts = () => {
@@ -12,15 +11,18 @@ export const useContacts = () => {
   const dispatch = useDispatch();
 
   const getContacts = () => {
-    dispatch(Operations.getItems());
+    dispatch(contactsOperations.getContacts());
   };
 
   const addContact = data => {
-    dispatch(Operations.addItem(data));
+    dispatch(contactsOperations.addContact(data));
   };
 
   const deleteContact = id => {
-    dispatch(Operations.deleteItem(id));
+    dispatch(contactsOperations.deleteContact(id));
+  };
+  const editContact = ({ id, name, number }) => {
+    dispatch(contactsOperations.editContact({ id, name, number }));
   };
 
   const setFilter = value => {
@@ -36,6 +38,7 @@ export const useContacts = () => {
     getContacts,
     addContact,
     deleteContact,
+    editContact,
     setFilter,
   };
 };

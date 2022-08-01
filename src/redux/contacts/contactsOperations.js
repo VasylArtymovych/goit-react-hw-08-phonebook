@@ -1,30 +1,49 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchContacts, addContact, deleteContact } from 'server/serverApi';
+import axios from 'axios';
 
 // actionCreators
-export const getItems = createAsyncThunk('contacts/fetchContacts', async () => {
+const getContacts = createAsyncThunk('contacts/fetchContacts', async () => {
   try {
-    const contacts = await fetchContacts();
-    return contacts;
+    const { data } = await axios.get('/contacts');
+    return data;
   } catch (error) {
+    console.log(error);
     return error.message;
   }
 });
 
-export const addItem = createAsyncThunk('contacts/add', async data => {
+const addContact = createAsyncThunk('contacts/add', async contact => {
   try {
-    const contact = await addContact(data);
-    return contact;
+    const { data } = await axios.post('/contacts', contact);
+    return data;
   } catch (error) {
+    console.log(error);
     return error.message;
   }
 });
 
-export const deleteItem = createAsyncThunk('contacts/delete', async id => {
+const deleteContact = createAsyncThunk('contacts/delete', async id => {
   try {
-    await deleteContact(id);
+    await axios.delete(`/contacts/${id}`);
     return id;
   } catch (error) {
+    console.log(error);
     return error.message;
   }
 });
+
+const editContact = createAsyncThunk(
+  'contacts/edit',
+  async ({ id, name, number }) => {
+    try {
+      const { data } = await axios.patch(`/contacts/${id}`, { name, number });
+      return data;
+    } catch (error) {
+      console.log(error);
+      return error.message;
+    }
+  }
+);
+
+const operations = { getContacts, addContact, deleteContact, editContact };
+export default operations;

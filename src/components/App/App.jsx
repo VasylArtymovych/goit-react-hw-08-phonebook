@@ -1,13 +1,20 @@
 import { Routes, Route } from 'react-router-dom';
-
+import { lazy, Suspense, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import Header from 'components/Header';
-import { lazy, Suspense } from 'react';
+import { authOperations } from 'redux/auth';
 
 const LoginPage = lazy(() => import('../../pages/LoginPage'));
 const RegisterPage = lazy(() => import('../../pages/RegisterPage'));
 const PhoneBook = lazy(() => import('../PhoneBook/PhoneBook'));
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log('app use');
+    dispatch(authOperations.fetchCurrentUser());
+  }, [dispatch]);
   return (
     <>
       <Suspense fallback={<div>loading...</div>}>

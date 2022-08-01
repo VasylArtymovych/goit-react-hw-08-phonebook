@@ -5,14 +5,8 @@ import { List } from './ContactList.styled';
 const ContactList = ({ contacts }) => {
   return (
     <List>
-      {contacts.map(({ id, name, number, createdAt }) => (
-        <ContactListItem
-          key={id}
-          id={id}
-          name={name}
-          number={number}
-          createdAt={createdAt}
-        />
+      {contacts.map(({ id, name, number }) => (
+        <ContactListItem key={id} id={id} name={name} number={number} />
       ))}
     </List>
   );

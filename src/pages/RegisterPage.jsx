@@ -31,24 +31,29 @@ export default function RegisterPage() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        name="name"
-        onChange={handleChange}
-        value={name}
-      ></input>
-      <input
-        type="email"
-        name="email"
-        onChange={handleChange}
-        value={email}
-      ></input>
-      <input
-        type="password"
-        name="password"
-        onChange={handleChange}
-        value={password}
-      ></input>
+      <label>
+        name
+        <input type="text" name="name" onChange={handleChange} value={name} />
+      </label>
+      <label>
+        email
+        <input
+          type="email"
+          name="email"
+          onChange={handleChange}
+          value={email}
+        />
+      </label>
+      <label>
+        password
+        <input
+          type="password"
+          name="password"
+          onChange={handleChange}
+          value={password}
+        />
+      </label>
+
       <button type="submit">login</button>
     </form>
   );

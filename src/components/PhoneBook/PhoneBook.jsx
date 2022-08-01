@@ -7,14 +7,13 @@ import Filter from 'components/Filter';
 import { Box } from 'components/Box/Box';
 import Spinner from 'components/Spinner/Spinner';
 import { useContacts } from 'hooks';
-import { Operations } from 'redux/contacts';
+import { contactsOperations } from 'redux/contacts';
 
 const PhoneBook = () => {
   const { contacts, filter, setFilter } = useContacts();
   const dispatch = useDispatch();
   useEffect(() => {
-    // getContacts() !!! зациклює
-    dispatch(Operations.getItems());
+    dispatch(contactsOperations.getContacts());
   }, [dispatch]);
 
   const handleFilterInput = event => {
@@ -23,7 +22,8 @@ const PhoneBook = () => {
   };
 
   const filterContacts = () => {
-    if (contacts.length !== 0) {
+    console.log(contacts);
+    if (contacts.length !== 0 && typeof contacts !== 'string') {
       const normalizedFilter = filter.toLowerCase();
       return contacts.filter(({ name }) =>
         name.toLowerCase().includes(normalizedFilter)
