@@ -6,10 +6,10 @@ import { Box } from 'components/Box/Box';
 
 const ContactListItem = ({ id, name, number }) => {
   const [currentId, setCurrentId] = useState(null);
-  const [editName, setEditName] = useState(name);
-  const [editNumber, setEditNumber] = useState(number);
+  // const [editName, setEditName] = useState(name);
+  // const [editNumber, setEditNumber] = useState(number);
   const [isEdited, setIsEdited] = useState(false);
-  const { loader, deleteContact, editContact } = useContacts();
+  const { loader, deleteContact } = useContacts();
 
   return (
     <Item>
@@ -26,6 +26,7 @@ const ContactListItem = ({ id, name, number }) => {
           disabled={currentId}
           onClick={() => {
             setCurrentId(id);
+            setIsEdited(true);
           }}
         >
           {loader && currentId ? 'Edit...' : 'Edit'}
