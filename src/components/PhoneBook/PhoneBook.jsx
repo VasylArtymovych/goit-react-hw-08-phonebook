@@ -10,8 +10,9 @@ import { useContacts } from 'hooks';
 import { contactsOperations } from 'redux/contacts';
 
 const PhoneBook = () => {
-  const { contacts, filter, setFilter } = useContacts();
   const dispatch = useDispatch();
+  const { contacts, filter, setFilter } = useContacts();
+
   useEffect(() => {
     dispatch(contactsOperations.getContacts());
   }, [dispatch]);
@@ -22,7 +23,6 @@ const PhoneBook = () => {
   };
 
   const filterContacts = () => {
-    console.log(contacts);
     if (contacts.length !== 0 && typeof contacts !== 'string') {
       const normalizedFilter = filter.toLowerCase();
       return contacts.filter(({ name }) =>
