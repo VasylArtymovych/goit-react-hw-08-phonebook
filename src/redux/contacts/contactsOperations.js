@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-// actionCreators
 const getContacts = createAsyncThunk('contacts/fetchContacts', async () => {
   try {
     const { data } = await axios.get('/contacts');

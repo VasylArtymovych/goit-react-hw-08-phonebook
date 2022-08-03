@@ -5,13 +5,13 @@ import ContactForm from 'components/ContactForm';
 import ContactList from 'components/ContactLIst';
 import Filter from 'components/Filter';
 import { Box } from 'components/Box/Box';
-import Spinner from 'components/Spinner/Spinner';
+import Spinner from 'components/Spinner';
 import { useContacts } from 'hooks';
 import { contactsOperations } from 'redux/contacts';
 
 const PhoneBook = () => {
   const dispatch = useDispatch();
-  const { contacts, filter, setFilter } = useContacts();
+  const { contacts, filter, loader, setFilter } = useContacts();
 
   useEffect(() => {
     dispatch(contactsOperations.getContacts());
@@ -46,8 +46,8 @@ const PhoneBook = () => {
           <h3>Total contacts: {filteredContacts.length}</h3>
         </Box>
 
-        {contacts.length === 0 ? (
-          Spinner
+        {loader ? (
+          Spinner.threeCircles
         ) : (
           <ContactList contacts={filteredContacts} />
         )}

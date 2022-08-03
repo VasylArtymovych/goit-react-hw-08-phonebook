@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
+import Swal from 'sweetalert2';
 import { Form, Label, Input, Button } from './ContactForm.styled';
 import { useContacts } from 'hooks';
+import parsePhoneNumber from 'libphonenumber-js';
 
 const ContactForm = () => {
   const [name, setName] = useState('');
@@ -10,7 +12,7 @@ const ContactForm = () => {
 
   const inputNameId = nanoid(12);
   const inputNumberId = nanoid(12);
-  const { addLoader, addContact } = useContacts();
+  const { contacts, addLoader, addContact } = useContacts();
 
   const inputChangeHandler = event => {
     const { name, value } = event.target;
@@ -26,9 +28,20 @@ const ContactForm = () => {
     }
   };
 
+  const formatPhoneNumber = () => {
+    const phoneNumber = parsePhoneNumber(`+${number}`);
+    return phoneNumber.getURI();
+  };
+
   const submitHandler = event => {
     event.preventDefault();
-    addContact({ name, number });
+    if (contacts.find(user => user.name.toLowerCase() === name.toLowerCase())) {
+      Swal.fire(`Name ${name} already exist`);
+      resetForm();
+      return;
+    }
+
+    addContact({ name, number: formatPhoneNumber() });
     resetForm();
   };
 

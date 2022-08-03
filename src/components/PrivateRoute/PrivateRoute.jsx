@@ -1,6 +1,5 @@
 import { Navigate } from 'react-router-dom';
 
-//1. Must repeat the Route behavior.
 export default function PrivateRoute({
   isLoggedIn,
   redirectPath = '/',

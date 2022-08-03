@@ -40,8 +40,7 @@ export const Button = styled.button.attrs({ type: 'submit' })`
   border-color: ${p => p.theme.colors.primary};
   border-radius: ${p => p.theme.space[4]}px;
   cursor: pointer;
-  &:hover,
-  &:focus {
+  &:hover {
     background: ${p => p.theme.colors.primary};
     color: ${p => p.theme.colors.text};
     box-shadow: 0px 0px 7px #fff;

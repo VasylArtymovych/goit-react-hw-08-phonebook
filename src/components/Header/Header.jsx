@@ -1,38 +1,45 @@
-import { Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { Container, StyledHeader, StyledLink } from './Header.styled';
+import { Container, StyledHeader, StyledLink, Title } from './Header.styled';
 import AuthNavigation from 'components/AuthNavigation';
 import UserMenu from 'components/UserMenu';
 import { authSelectors } from 'redux/auth';
 import routesPath from 'routesPath';
-import { Typography } from '@mui/material';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
+import Spinner from 'components/Spinner';
 
 export default function Header() {
   const isLoggedIn = useSelector(authSelectors.getIsloggedIn);
+  const isFetchingCurrentUser = useSelector(
+    authSelectors.getIsFetchingCurrentUser
+  );
+
+  const location = useLocation();
+  const isHomePath = location.pathname === '/';
+
   return (
     <>
       <StyledHeader as="header">
         <Container>
           <StyledLink to={routesPath.home}>
-            <Typography
-              variant="h1"
-              component="h2"
-              sx={{
-                fontSize: 34,
-                color: '#560668',
-                fontWeight: 'bold',
-                align: 'center',
-              }}
-            >
+            <Title>
               <AutoStoriesIcon fontSize="large" />
               Contactsbook
-            </Typography>
+            </Title>
           </StyledLink>
-
-          {isLoggedIn ? <UserMenu /> : <AuthNavigation />}
+          {isHomePath && isLoggedIn && (
+            <NavLink to={routesPath.contacts}>Back to ContactBook</NavLink>
+          )}
+          {isFetchingCurrentUser ? (
+            Spinner.threeDots
+          ) : isLoggedIn ? (
+            <UserMenu />
+          ) : (
+            <AuthNavigation />
+          )}
         </Container>
       </StyledHeader>
+
       <Outlet />
     </>
   );

@@ -4,6 +4,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { ThemeProvider } from 'styled-components';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Theme, GlobalStyles } from 'styles';
 import App from 'components/App';
 import { store, persistor } from './redux/store';
@@ -15,6 +17,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <BrowserRouter basename="/goit-react-hw-08-phonebook/">
+            <ToastContainer autoClose={1000} theme="dark" />
             <App />
           </BrowserRouter>
         </PersistGate>

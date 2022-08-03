@@ -2,22 +2,27 @@ import { useSelector, useDispatch } from 'react-redux';
 import { authSelectors, authOperations } from 'redux/auth';
 import avatar from '../../images/user-avatar.jpeg';
 
+import LogoutIcon from '@mui/icons-material/Logout';
+import { ImgWrap, Container, Button } from './UserMenu.styled';
+
 export default function UserMenu() {
   const name = useSelector(authSelectors.getUserName);
 
   const dispatch = useDispatch();
   return (
-    <div>
-      <img src={avatar} alt="avatar" width="30" height="30" />
+    <Container>
+      <ImgWrap>
+        <img src={avatar} alt="avatar" />
+      </ImgWrap>
       <span>Welcome, {name}</span>
-      <button
+      <Button
         type="button"
         onClick={() => {
           dispatch(authOperations.logOut());
         }}
       >
-        LogOut
-      </button>
-    </div>
+        <LogoutIcon sx={{ color: 'white' }} />
+      </Button>
+    </Container>
   );
 }
